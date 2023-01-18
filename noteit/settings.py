@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'notes_api.apps.NotesApiConfig',
+    'authentication_api.apps.AuthenticationApiConfig',
     
     'rest_framework',
     'corsheaders',
