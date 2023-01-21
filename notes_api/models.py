@@ -12,4 +12,5 @@ class Note(models.Model):
     owner = models.ForeignKey(to=User, on_delete=models.CASCADE, default="")
     
     def __str__(self):
-        return self.title[0:50]
+        return self.title[0:50] 
+    

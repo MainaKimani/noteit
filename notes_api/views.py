@@ -48,24 +48,11 @@ def getRoutes(request):
     ]
     return Response(routes)
 
-class GetNotes(ListCreateAPIView):
-    serializer_class = NoteSerializer
-    queryset = Note.objects.all()
-    permission_classes = (IsAuthenticated)
-
-    def perform_create(self, serializer):
-        return serializer.save(owner=self.request.user)
-
-    def get_queryset(self):
-        return self.queryset.filter(owner=self.request.user)
-
-
-
 @api_view(['GET'])
-#@permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated])
 def getNotes(request):
     user = request.user
-    notes = Note.objects.all().filter(owner=user.id).order_by('-updated')
+    notes = user.note_set.all()
     serializer = NoteSerializer(notes, many=True)
     return Response(serializer.data)
 
@@ -83,7 +70,7 @@ def createNote(request):
     note = Note.objects.create(
         title=data['title'],
         body=data['body'],
-        owner=user
+        owner=user,
     )
     serializer = NoteSerializer(note, many=False)
     return Response(serializer.data)
