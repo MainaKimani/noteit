@@ -1,12 +1,18 @@
+from rest_framework.serializers import ModelSerializer
 from rest_framework import serializers
 from .models import User
 from django.contrib import auth
 from rest_framework.exceptions import AuthenticationFailed
-from rest_framework_simplejwt.tokens import RefreshToken, TokenError
-from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.utils.encoding import smart_str, force_str, smart_bytes, DjangoUnicodeDecodeError
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.views import TokenObtainPairView
 
+
+class userSerializer(ModelSerializer):
+    class Meta:
+        model = User
+        fields = '__all__'
 
 class RegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(
@@ -68,17 +74,19 @@ class LoginSerializer(serializers.ModelSerializer):
         
         user = auth.authenticate(email=email, password=password)
 
+        print("Auth: "+ str(user))
+
         if not user:
             raise AuthenticationFailed('Invalid credentials, try again')
         if not user.is_active:
             raise AuthenticationFailed('Account disabled, contact admin')
-        if not user.is_verified:
-            raise AuthenticationFailed('Email is not verified')
+        # if not user.is_verified:
+        #     raise AuthenticationFailed('Email is not verified')
 
         return {
             'email': user.email,
             'username': user.username,
-            'tokens': user.tokens
+            'tokens': user.tokens,
         }
 
-        return super().validate(attrs)
+        #return super().validate(attrs)

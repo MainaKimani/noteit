@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from rest_framework import generics, status, views, permissions
-from .serializers import RegisterSerializer, EmailVerificationSerializer, LoginSerializer
+from .serializers import userSerializer,RegisterSerializer, EmailVerificationSerializer, LoginSerializer
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.decorators import api_view
 from .models import User
 from .utils import Util
 from django.contrib.sites.shortcuts import get_current_site
@@ -14,6 +15,7 @@ from drf_yasg import openapi
 #from .renderers import UserRenderer
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.utils.encoding import smart_str, force_str, smart_bytes, DjangoUnicodeDecodeError
+
 
 # Create your views here.
 class RegisterView(generics.GenericAPIView):
@@ -69,10 +71,12 @@ class VerifyEmail(views.APIView):
             return Response({'email': 'Successfully activated'}, status=status.HTTP_200_OK)
 
         except jwt.ExpiredSignatureError as identifier:
+            
             return Response({'error': 'Activation Expired'}, status=status.HTTP_400_BAD_REQUEST)
         except jwt.exceptions.DecodeError as identifier:
             return Response({'error': 'Invalid token'}, status=status.HTTP_400_BAD_REQUEST)
 
+#Login view
 class LoginAPIView(generics.GenericAPIView):
     serializer_class = LoginSerializer
 
@@ -81,4 +85,10 @@ class LoginAPIView(generics.GenericAPIView):
         serializer.is_valid(raise_exception=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+#Get user information
+@api_view(['GET'])
+def getUser(request, pk):
+    user = User.objects.get(id=pk)
+    serializer = userSerializer(user, many=False)
+    return Response(serializer.data)
 
