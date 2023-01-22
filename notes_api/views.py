@@ -1,6 +1,10 @@
 from django.shortcuts import render
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.generics import ListCreateAPIView
+from rest_framework import permissions
+from .permissions import IsOwner
+from rest_framework.decorators import api_view, permission_classes
 from .models import Note
 from .serializers import NoteSerializer
 
@@ -45,12 +49,15 @@ def getRoutes(request):
     return Response(routes)
 
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def getNotes(request):
-    notes = Note.objects.all().order_by('-updated')
+    user = request.user
+    notes = user.note_set.all()
     serializer = NoteSerializer(notes, many=True)
     return Response(serializer.data)
 
 @api_view(['GET'])
+@permission_classes([IsAuthenticated,IsOwner])
 def getNote(request, pk):
     notes = Note.objects.get(id=pk)
     serializer = NoteSerializer(notes, many=False)
@@ -58,10 +65,12 @@ def getNote(request, pk):
 
 @api_view(['POST'])
 def createNote(request):
+    user = request.user
     data = request.data
     note = Note.objects.create(
         title=data['title'],
-        body=data['body']
+        body=data['body'],
+        owner=user,
     )
     serializer = NoteSerializer(note, many=False)
     return Response(serializer.data)
