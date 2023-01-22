@@ -1,0 +1,17 @@
+version: '3.4'
+
+services:
+  api:
+    container_name: noteit
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    command: >
+      sh -c "python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/noteit
+    environment: 
+      - SECRET_KEY=Maina-Kimani-xzug=6t7q^mgb+c4^1*gv1q&#*s513$*1mojn37kt7b37)tge!
+      - DEBUG=1
+    ports:
+      - "8000:8000"
