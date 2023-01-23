@@ -27,13 +27,13 @@ Feel free to clone or fork this repository, disect, and build a beautify front-e
 
 3. create a virtual environment using `virtualenv env`
 
-4. Activate the virtual environment by running `source venv/bin/activate`
+4. Activate the virtual environment by running `venv/bin/activate`
 
-    - On Windows use `source venv\Scripts\activate`
+    - On Windows use `venv\Scripts\activate.ps1`
 
 5. Install the dependencies using `pip install -r requirements.txt`
 
-6. You also need to edit .env file to specify SECRET_KEY and the email credentials if you'll have to send users a verification link upon registration.
+6. You also need to edit .env (.env.bat on windows) file to specify SECRET_KEY and the email credentials if you'll have to send users a verification link upon registration.
 
 7. Run the django development server using 
     `python manage.py runserver`
@@ -67,15 +67,15 @@ To run the checklist:
 ` $ python manage.py check --deploy`
 
 
-## Git Workflow and CI simulation
+## Git Workflow and CI/CD simulation
 Although this project was handled individually, I assumed that I was working with a team hence followed a workflow that mirrored how developers work in their daily lives. This involved working with commits, pushes, pull requests, merges and a ci/cd pipeline using GitHub Actions.
 
 The workflow involved the following major steps:
 
 1. Creating a repository with both a `MASTER` and `Development`branches. Reason behind this set up is that, any push to master branch will be deployed to production and develop to the staging.
 2. A developer working on any feature should create a branch from the `DEVELOPMENT` branch and then submit a pull request upon completion.
-3. On submit requeste, a workflow should run and check if the formatting of the codes are fine, run tests, package, and deploy to staging among other jobs that might be in the pipeline. 
-4. Afterwards, the project lead and other reviewers can approve the staged deployment, thus pushing it to the master branch, thus triggering the final tests and deployment to production.
+3. On submit requeste, a workflow should run and check if the formatting of the codes are fine, run tests, package, and deploy to staging (docker hub in this case) among other jobs that might be in the pipeline. 
+4. Afterwards, the project lead and other reviewers can approve the staged deployment, thus pushing it to the master branch, thus triggering the final tests and deployed to production.
 
 Here is a link to learn more about how I automated this projects's workflow from building to tessting to deploying on Docker Hub using GitHub Actions. Check out my article!
 
@@ -87,4 +87,5 @@ The authentication app brings in the registration and login features on board to
 
 The signature is issued by the JWT backend, using the header + payload + SECRET_KEY. Upon each request this signature is verified. If any information in the header or in the payload was changed by the client it will invalidate the signature. As a result, this upholds the integrity of the backend data since only an authenticated user can perform CREATE, READ, UPDATE, and DELETE requests.
 
-
+## Monitoring
+Prometheus is used in this project to monitor the application during runtime; which is an open-source systems monitoring and alerting toolkit that can be used to easily and cheaply monitor infrastructure and applications. Once you run the application, you case the logs on port `:8000/metrics`. However, the view a detailed dashbord, one would require cloud platform or a running container instance. 
