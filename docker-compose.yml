@@ -7,9 +7,7 @@ services:
       context: .
       dockerfile: ./Dockerfile
     command: >
-      sh -c "python manage.py migrate &&
-            python manage.py makemigration &&
-            python manage.py runserver 127.0.0.1:8000"
+      sh -c "python noteit/manage.py runserver 127.0.0.1:8000"
     volumes:
       - .:/noteit
     environment: 
