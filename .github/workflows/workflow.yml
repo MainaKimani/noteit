@@ -37,7 +37,7 @@ jobs:
         coverage run manage.py test
         coverage report -m
  
-  package-job: # package job for building and publishing docker images
+  package: # package job for building and publishing docker images
     runs-on: ubuntu-latest
     needs: [build-and-test]     #will be fired if and only if the build-and-test job is passed.
     if: ${{ github.event_name == 'push' }}    #will be fired if the trigger event is a push event.
