@@ -12,9 +12,9 @@ on:
       - master
       - develop
 
-#two job definitions (building, packaging)
+#two job definitions (building and testing)
 jobs:
-  build:
+  build-and-test:
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 4
