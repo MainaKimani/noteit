@@ -87,3 +87,4 @@ The authentication app brings in the registration and login features on board to
 
 The signature is issued by the JWT backend, using the header + payload + SECRET_KEY. Upon each request this signature is verified. If any information in the header or in the payload was changed by the client it will invalidate the signature. As a result, this upholds the integrity of the backend data since only an authenticated user can perform CREATE, READ, UPDATE, and DELETE requests.
 
+
