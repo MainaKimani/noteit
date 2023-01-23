@@ -1,6 +1,6 @@
 # Note It API
 This is a notes app api that is built using django. The api acts as a backend and has endpoints that can communicate with a frontend application. 
-In this case, I developed a react frontend application that was integrated with this api. (Here is the github repository ----)
+In this case, I developed a react frontend application that was integrated with this api. ([Here is the github repository](https://github.com/MainaKimani/noteit-frontend))
 
 With the React frontend application, users can register,  and create notes that will only be available to them.
 
@@ -77,7 +77,7 @@ The workflow involved the following major steps:
 3. On submit requeste, a workflow should run and check if the formatting of the codes are fine, run tests, package, and deploy to staging (docker hub in this case) among other jobs that might be in the pipeline. 
 4. Afterwards, the project lead and other reviewers can approve the staged deployment, thus pushing it to the master branch, thus triggering the final tests and deployed to production.
 
-Here is a link to learn more about how I automated this projects's workflow from building to tessting to deploying on Docker Hub using GitHub Actions. Check out my article!
+Here is a link to learn more about how I automated this projects's workflow from building to tessting to deploying on Docker Hub using GitHub Actions. 
 
 
 ## Security Considerations
