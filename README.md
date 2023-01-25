@@ -7,6 +7,8 @@ With the React frontend application, users can register,  and create notes that 
 Swagger UI was used to visualize and interact with the API’s resources without having any frontend in place.  
 Here are the screenshots of the available endpoints (notes and authentication)!
 
+Visualize the end points using this link - https://noteit-staging.mainakimani.com
+
 <img width="720" alt="API-notes_api" src="https://user-images.githubusercontent.com/48632817/213995435-72019ff7-0a9d-4f12-a108-f5e0380c4791.png">  
 
 
