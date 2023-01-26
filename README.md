@@ -47,7 +47,7 @@ Feel free to clone or fork this repository, disect, and build a beautify front-e
 7. Run the django development server using 
     `python manage.py runserver`
     #or
-    `gunicorn --chdir simple_notes simple_notes.wsgi --preload`
+    `gunicorn --chdir noteit noteit.wsgi --preload`
 
 8. You can as well run a container using the application's docker image: `docker pull mainakimani/noteit` 
 
