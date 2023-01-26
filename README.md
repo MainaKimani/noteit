@@ -12,6 +12,8 @@ Here are the screenshots of the available endpoints (notes and authentication)!
  - Visualize the end points using this link - https://noteit-staging.mainakimani.com
  
  - Read more about the endpoints and path parameters - https://noteit-staging.mainakimani.com/redoc/
+ 
+ - Need the docker image instead? `docker pull mainakimani/noteit`
 
 
 <img width="720" alt="API-notes_api" src="https://user-images.githubusercontent.com/48632817/213995435-72019ff7-0a9d-4f12-a108-f5e0380c4791.png">  
@@ -46,6 +48,8 @@ Feel free to clone or fork this repository, disect, and build a beautify front-e
     `python manage.py runserver`
     #or
     `gunicorn --chdir simple_notes simple_notes.wsgi --preload`
+
+8. You can as well run a container using the application's docker image: `docker pull mainakimani/noteit` 
 
 
 ## Testing 
