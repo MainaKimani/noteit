@@ -55,12 +55,12 @@ jobs:
   web-deploy: #deploying to web server
     name: 🎉 Deploy
     runs-on: ubuntu-latest
+    needs: [package]
     steps:
     - name: 🚚 Get latest code
       uses: actions/checkout@v3
 
     - name: 📂 Deploy to staging
-      needs: [package]
       if: github.ref == 'refs/heads/development'
       uses: SamKirkland/FTP-Deploy-Action@4.3.3
       with:
@@ -70,7 +70,6 @@ jobs:
         server-dir: /staging/
     
     - name: 📂 Deploy to production
-      needs: [package]
       if: github.ref == 'refs/heads/master'
       uses: SamKirkland/FTP-Deploy-Action@4.3.3
       with:
