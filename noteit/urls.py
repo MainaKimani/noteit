@@ -24,9 +24,9 @@ schema_view = get_schema_view(
    openapi.Info(
       title="NoteIt API",
       default_version='v0.1.0',
-      description="Test description",
+      description="Staging",
       terms_of_service="https://www.google.com/policies/terms/",
-      contact=openapi.Contact(email="contact@noteit.local"),
+      contact=openapi.Contact(email="me@maiankimani.com"),
       license=openapi.License(name="Test License"),
    ),
    public=True,
