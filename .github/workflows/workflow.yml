@@ -12,7 +12,7 @@ on:
       - master
       - develop
 
-#two job definitions (building and testing)
+#two job definitions (building and testing, packaging, and deployment)
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
@@ -37,7 +37,7 @@ jobs:
         coverage run manage.py test
         coverage report -m
  
-  package-job: # package job for building and publishing docker images
+  package: # package job for building and publishing docker images
     runs-on: ubuntu-latest
     needs: [build-and-test]     #will be fired if and only if the build-and-test job is passed.
     if: ${{ github.event_name == 'push' }}    #will be fired if the trigger event is a push event.
@@ -52,5 +52,27 @@ jobs:
           docker push mainakimani/noteit
           
         
+  web-deploy: #deploying to web server
+    name: 🎉 Deploy
+    runs-on: ubuntu-latest
+    steps:
+    - name: 🚚 Get latest code
+      uses: actions/checkout@v3
 
-  
+    - name: 📂 Deploy to staging
+      if: github.ref == 'refs/heads/development'
+      uses: SamKirkland/FTP-Deploy-Action@4.3.3
+      with:
+        server: ftp.mainakimani.com
+        username: FtpUserName
+        password: ${{ secrets.ftp_password }}
+        server-dir: /staging/
+    
+    - name: 📂 Deploy to production
+      if: github.ref == 'refs/heads/master'
+      uses: SamKirkland/FTP-Deploy-Action@4.3.3
+      with:
+        server: ftp.mainakimani.com
+        username: FtpUserName
+        password: ${{ secrets.ftp_password }}
+        server-dir: /deploy/
