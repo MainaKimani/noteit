@@ -1,11 +1,20 @@
 # Note It API
 This is a notes app api that is built using django. The api acts as a backend and has endpoints that can communicate with a frontend application. 
-In this case, I developed a react frontend application that was integrated with this api. (Here is the github repository ----)
+In this case, I developed a react frontend application that was integrated with this api. ([Here is the github repository](https://github.com/MainaKimani/noteit-frontend))
+
+Here is a link to a simple, functional application (React Frontend integrated with the Django backend) - https://noteit.onrender.com
 
 With the React frontend application, users can register,  and create notes that will only be available to them.
 
 Swagger UI was used to visualize and interact with the API’s resources without having any frontend in place.  
 Here are the screenshots of the available endpoints (notes and authentication)!
+
+ - Visualize the end points using this link - https://noteit.mainakimani.com
+ 
+ - Read more about the endpoints and path parameters - https://noteit.mainakimani.com/redoc/
+ 
+ - Need the docker image instead? `docker pull mainakimani/noteit`
+
 
 <img width="720" alt="API-notes_api" src="https://user-images.githubusercontent.com/48632817/213995435-72019ff7-0a9d-4f12-a108-f5e0380c4791.png">  
 
@@ -27,18 +36,20 @@ Feel free to clone or fork this repository, disect, and build a beautify front-e
 
 3. create a virtual environment using `virtualenv env`
 
-4. Activate the virtual environment by running `source venv/bin/activate`
+4. Activate the virtual environment by running `venv/bin/activate`
 
-    - On Windows use `source venv\Scripts\activate`
+    - On Windows use `venv\Scripts\activate.ps1`
 
 5. Install the dependencies using `pip install -r requirements.txt`
 
-6. You also need to edit .env file to specify SECRET_KEY and the email credentials if you'll have to send users a verification link upon registration.
+6. You also need to edit .env (.env.bat on windows) file to specify SECRET_KEY and the email credentials if you'll have to send users a verification link upon registration.
 
 7. Run the django development server using 
     `python manage.py runserver`
     #or
-    `gunicorn --chdir simple_notes simple_notes.wsgi --preload`
+    `gunicorn --chdir noteit noteit.wsgi --preload`
+
+8. You can as well run a container using the application's docker image: `docker pull mainakimani/noteit` 
 
 
 ## Testing 
@@ -67,17 +78,17 @@ To run the checklist:
 ` $ python manage.py check --deploy`
 
 
-## Git Workflow and CI simulation
+## Git Workflow and CI/CD simulation
 Although this project was handled individually, I assumed that I was working with a team hence followed a workflow that mirrored how developers work in their daily lives. This involved working with commits, pushes, pull requests, merges and a ci/cd pipeline using GitHub Actions.
 
 The workflow involved the following major steps:
 
 1. Creating a repository with both a `MASTER` and `Development`branches. Reason behind this set up is that, any push to master branch will be deployed to production and develop to the staging.
 2. A developer working on any feature should create a branch from the `DEVELOPMENT` branch and then submit a pull request upon completion.
-3. On submit requeste, a workflow should run and check if the formatting of the codes are fine, run tests, package, and deploy to staging among other jobs that might be in the pipeline. 
-4. Afterwards, the project lead and other reviewers can approve the staged deployment, thus pushing it to the master branch, thus triggering the final tests and deployment to production.
+3. On submit requeste, a workflow should run and check if the formatting of the codes are fine, run tests, package, and deploy to staging (docker hub in this case) among other jobs that might be in the pipeline. 
+4. Afterwards, the project lead and other reviewers can approve the staged deployment, thus pushing it to the master branch, thus triggering the final tests and deployed to production.
 
-Here is a link to learn more about how I automated this projects's workflow from building to tessting to deploying on Docker Hub using GitHub Actions. Check out my article!
+Here is a link to learn more about how I automated this projects's workflow from building to tessting to deploying on Docker Hub using GitHub Actions. 
 
 
 ## Security Considerations
@@ -87,4 +98,5 @@ The authentication app brings in the registration and login features on board to
 
 The signature is issued by the JWT backend, using the header + payload + SECRET_KEY. Upon each request this signature is verified. If any information in the header or in the payload was changed by the client it will invalidate the signature. As a result, this upholds the integrity of the backend data since only an authenticated user can perform CREATE, READ, UPDATE, and DELETE requests.
 
-
+## Monitoring
+Prometheus is used in this project to monitor the application during runtime; which is an open-source systems monitoring and alerting toolkit that can be used to easily and cheaply monitor infrastructure and applications. Once you run the application, you case the logs on port `:8000/metrics`. However, the view a detailed dashbord, one would require cloud platform or a running container instance. 
