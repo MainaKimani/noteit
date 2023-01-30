@@ -85,10 +85,12 @@ The workflow involved the following major steps:
 
 1. Creating a repository with both a `MASTER` and `Development`branches. Reason behind this set up is that, any push to master branch will be deployed to production and develop to the staging.
 2. A developer working on any feature should create a branch from the `DEVELOPMENT` branch and then submit a pull request upon completion.
-3. On submit requeste, a workflow should run and check if the formatting of the codes are fine, run tests, package, and deploy to staging (docker hub in this case) among other jobs that might be in the pipeline. 
+3. On submit request, a workflow should run and check if the formatting of the codes are fine, run tests, package, and deploy to staging (docker hub in this case) among other jobs that might be in the pipeline. 
 4. Afterwards, the project lead and other reviewers can approve the staged deployment, thus pushing it to the master branch, thus triggering the final tests and deployed to production.
 
-Here is a link to learn more about how I automated this projects's workflow from building to tessting to deploying on Docker Hub using GitHub Actions. 
+      <img width="643" alt="workflow" src="https://user-images.githubusercontent.com/48632817/215477691-229d0f38-21b1-4db0-9fee-1b5da88b3a7a.png">
+      
+      Automated workflow (Buil & test - package - deploy)
 
 
 ## Security Considerations
