@@ -9,9 +9,9 @@ With the React frontend application, users can register,  and create notes that 
 Swagger UI was used to visualize and interact with the API’s resources without having any frontend in place.  
 Here are the screenshots of the available endpoints (notes and authentication)!
 
- - Visualize the end points using this link - https://noteit-staging.mainakimani.com
+ - Visualize the end points using this link - https://noteit.mainakimani.com
  
- - Read more about the endpoints and path parameters - https://noteit-staging.mainakimani.com/redoc/
+ - Read more about the endpoints and path parameters - https://noteit.mainakimani.com/redoc/
  
  - Need the docker image instead? `docker pull mainakimani/noteit`
 
