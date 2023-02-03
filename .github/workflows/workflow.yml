@@ -4,13 +4,13 @@ on:
   # opening a pull request to master and develop branch will be a trigger
   pull_request:
     branches:
-      - develop
+      - development
       - master
   # any code pushed to master and develop branch will also be a trigger
   push:
     branches:
+      - development
       - master
-      - develop
 
 #two job definitions (building and testing, packaging, and deployment)
 jobs:
@@ -64,7 +64,7 @@ jobs:
       if: github.ref == 'refs/heads/development'
       uses: SamKirkland/FTP-Deploy-Action@4.3.3
       with:
-        server: ftp.mainakimani.com
+        server: www.mainakimani.com
         username: ${{ secrets.FTPUSERNAME }}
         password: ${{ secrets.FTPPASSWORD }}
         server-dir: /staging/
@@ -73,7 +73,7 @@ jobs:
       if: github.ref == 'refs/heads/master'
       uses: SamKirkland/FTP-Deploy-Action@4.3.3
       with:
-        server: ftp.mainakimani.com
+        server: www.mainakimani.com
         username: ${{ secrets.FTPUSERNAME }}
         password: ${{ secrets.FTPPASSWORD }}
         server-dir: /deploy/
