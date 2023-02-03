@@ -24,9 +24,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY','sdfghj1378fhvnmxl,mbnfdcvb')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False #bool(int(os.environ.get('DEBUG', 1)))
+DEBUG = False 
+#bool(int(os.environ.get('DEBUG', 1)))
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost','*']
 # ALLOWED_HOSTS.extend(
 #     filter(
 #         None,
@@ -162,10 +163,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-
-
 STATIC_URL = 'static/'
-
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+STATIC_ROOT = "home/mainaki1/noteit-staging.maiankimani.com/static/"
 
 
 # Default primary key field type
